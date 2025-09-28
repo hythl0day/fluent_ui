@@ -523,11 +523,11 @@ class _Icon extends StatelessWidget {
         case TextDirection.rtl:
           iconWidget = Transform(
             transform: Matrix4.identity()
-              ..scaleByDouble(
+              ..scaled(
                 -1.0, // Flip X axis (horizontal flip)
                 1.0, // Keep Y axis (no vertical flip)
                 1.0, // Keep Z axis (no depth flip)
-                1.0, // No perspective
+                // 1.0, // No perspective
               ),
             alignment: AlignmentDirectional.center,
             transformHitTests: false,

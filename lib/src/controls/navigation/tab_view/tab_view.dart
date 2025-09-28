@@ -5,7 +5,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_localizations/flutter_localizations.dart';
+// import 'package:flutter_localizations/flutter_localizations.dart';
 
 part 'tab.dart';
 
@@ -396,9 +396,9 @@ class _TabViewState extends State<TabView> {
   Widget _buttonTabBuilder(
     BuildContext context,
     Widget icon,
-    VoidCallback? onPressed,
-    String tooltip,
-  ) {
+    VoidCallback? onPressed, {
+    String? tooltip,
+  }) {
     final item = SizedBox(
       width: _kButtonWidth,
       height: 28.0,
@@ -427,7 +427,11 @@ class _TabViewState extends State<TabView> {
       ),
     );
     if (onPressed == null) return item;
-    return Tooltip(message: tooltip, child: item);
+    if (tooltip != null && tooltip.isNotEmpty) {
+      return Tooltip(message: tooltip, child: item);
+    } else {
+      return item;
+    }
   }
 
   Widget divider(int index) {
@@ -450,11 +454,11 @@ class _TabViewState extends State<TabView> {
   Widget build(BuildContext context) {
     assert(debugCheckHasDirectionality(context));
     assert(debugCheckHasFluentTheme(context));
-    assert(debugCheckHasFluentLocalizations(context));
+    // assert(debugCheckHasFluentLocalizations(context));
 
     final direction = Directionality.of(context);
     final theme = FluentTheme.of(context);
-    final localizations = FluentLocalizations.of(context);
+    // final localizations = FluentLocalizations.of(context);
 
     final headerFooterTextStyle =
         theme.typography.bodyLarge ?? const TextStyle();
@@ -516,33 +520,35 @@ class _TabViewState extends State<TabView> {
                                 });
                           }
                         },
-                        child: Localizations.override(
-                          context: context,
-                          delegates: const [
-                            GlobalMaterialLocalizations.delegate,
-                          ],
-                          child: ReorderableListView.builder(
-                            buildDefaultDragHandles: false,
-                            shrinkWrap: true,
-                            scrollDirection: Axis.horizontal,
-                            scrollController: scrollController,
-                            onReorder: (i, ii) {
-                              widget.onReorder?.call(i, ii);
-                            },
-                            itemCount: widget.tabs.length,
-                            proxyDecorator: (child, index, animation) {
-                              return child;
-                            },
-                            itemBuilder: (context, index) {
-                              return _tabBuilder(
-                                context,
-                                index,
-                                preferredTabWidth,
-                              );
-                            },
-                            dragStartBehavior: DragStartBehavior.down,
-                          ),
-                        ),
+                        child:
+                            // Localizations.override(
+                            //   context: context,
+                            //   delegates: const [
+                            //     GlobalMaterialLocalizations.delegate,
+                            //   ],
+                            //   child:
+                            ReorderableListView.builder(
+                              buildDefaultDragHandles: false,
+                              shrinkWrap: true,
+                              scrollDirection: Axis.horizontal,
+                              scrollController: scrollController,
+                              onReorder: (i, ii) {
+                                widget.onReorder?.call(i, ii);
+                              },
+                              itemCount: widget.tabs.length,
+                              proxyDecorator: (child, index, animation) {
+                                return child;
+                              },
+                              itemBuilder: (context, index) {
+                                return _tabBuilder(
+                                  context,
+                                  index,
+                                  preferredTabWidth,
+                                );
+                              },
+                              dragStartBehavior: DragStartBehavior.down,
+                            ),
+                        // ),
                       );
 
                       /// Whether the tab bar is scrollable
@@ -577,7 +583,7 @@ class _TabViewState extends State<TabView> {
                                     }
                                   }
                                 : null,
-                            localizations.scrollTabBackwardLabel,
+                            // tooltip: localizations.scrollTabBackwardLabel,
                           ),
                         );
                       }
@@ -604,7 +610,7 @@ class _TabViewState extends State<TabView> {
                                     }
                                   }
                                 : null,
-                            localizations.scrollTabForwardLabel,
+                            // tooltip: localizations.scrollTabForwardLabel,
                           ),
                         );
                       }
@@ -654,7 +660,7 @@ class _TabViewState extends State<TabView> {
                                       icon;
                                 }(),
                                 widget.onNewPressed!,
-                                localizations.newTabLabel,
+                                // tooltip: localizations.newTabLabel,
                               ),
                             ),
                           // reserved strip width

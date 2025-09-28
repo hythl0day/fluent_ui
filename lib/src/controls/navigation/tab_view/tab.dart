@@ -308,7 +308,7 @@ class TabState extends State<Tab>
     assert(debugCheckHasFluentTheme(context));
     final theme = FluentTheme.of(context);
     final res = theme.resources;
-    final localizations = FluentLocalizations.of(context);
+    // final localizations = FluentLocalizations.of(context);
 
     // The text of the tab, if a [Text] widget is used
     final text = () {
@@ -466,18 +466,20 @@ class TabState extends State<Tab>
                                 primaryBorder: BorderSide.none,
                                 secondaryBorder: BorderSide.none,
                               ),
-                              child: Tooltip(
-                                message: localizations.closeTabLabel,
-                                child: SizedBox(
-                                  height: 24.0,
-                                  width: 32.0,
-                                  child: IconButton(
-                                    icon: widget.closeIcon!,
-                                    onPressed: tab.onClose,
-                                    focusable: false,
+                              child:
+                                  // Tooltip(
+                                  //   message: localizations.closeTabLabel,
+                                  //   child:
+                                  SizedBox(
+                                    height: 24.0,
+                                    width: 32.0,
+                                    child: IconButton(
+                                      icon: widget.closeIcon!,
+                                      onPressed: tab.onClose,
+                                      focusable: false,
+                                    ),
                                   ),
-                                ),
-                              ),
+                              // ),
                             ),
                           ),
                       ],
