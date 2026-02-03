@@ -139,6 +139,7 @@ class FlyoutListTile extends StatelessWidget {
     this.margin = const EdgeInsetsDirectional.only(bottom: 5),
     this.selected = false,
     this.showSelectedIndicator = true,
+    this.cursor,
   });
 
   /// Called when the tile is tapped or otherwise activated.
@@ -184,12 +185,15 @@ class FlyoutListTile extends StatelessWidget {
   /// Whether this tile is enabled.
   bool get isEnabled => onPressed != null;
 
+  final MouseCursor? cursor;
+
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasFluentTheme(context));
 
     return HoverButton(
       key: key,
+      cursor: cursor,
       onPressed: onPressed,
       onLongPress: onLongPress,
       focusNode: focusNode,

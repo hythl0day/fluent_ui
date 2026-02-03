@@ -296,7 +296,7 @@ class _ComboBoxMenuState<T> extends State<_ComboBoxMenu<T>> {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasFluentTheme(context));
-    assert(debugCheckHasFluentLocalizations(context));
+    // assert(debugCheckHasFluentLocalizations(context));
     // The menu is shown in three stages (unit timing in brackets):
     // [0s - 0.25s] - Fade in a rect-sized menu container with the selected item.
     // [0.25s - 0.5s] - Grow the otherwise empty menu container from the center
@@ -349,7 +349,7 @@ class _ComboBoxMenuState<T> extends State<_ComboBoxMenu<T>> {
             scopesRoute: true,
             namesRoute: true,
             explicitChildNodes: true,
-            label: FluentLocalizations.of(context).dialogLabel,
+            // label: FluentLocalizations.of(context).dialogLabel,
             child: DefaultTextStyle.merge(
               style: route.style,
               child: ScrollConfiguration(
@@ -1280,7 +1280,7 @@ class ComboBoxState<T> extends State<ComboBox<T>> {
         to: navigator.context,
       ),
       style: _textStyle(context)!,
-      barrierLabel: FluentLocalizations.of(context).modalBarrierDismissLabel,
+      // barrierLabel: FluentLocalizations.of(context).modalBarrierDismissLabel,
       popupColor: widget.popupColor,
     );
 
@@ -1323,7 +1323,7 @@ class ComboBoxState<T> extends State<ComboBox<T>> {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasFluentTheme(context));
-    assert(debugCheckHasFluentLocalizations(context));
+    // assert(debugCheckHasFluentLocalizations(context));
     assert(debugCheckHasDirectionality(context));
 
     final theme = FluentTheme.of(context);

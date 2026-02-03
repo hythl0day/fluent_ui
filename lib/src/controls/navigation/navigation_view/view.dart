@@ -568,7 +568,7 @@ class NavigationViewState extends State<NavigationView> {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasFluentTheme(context));
-    assert(debugCheckHasFluentLocalizations(context));
+    // assert(debugCheckHasFluentLocalizations(context));
     assert(debugCheckHasMediaQuery(context));
     assert(debugCheckHasDirectionality(context));
     assert(

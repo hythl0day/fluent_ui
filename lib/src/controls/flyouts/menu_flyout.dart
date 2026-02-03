@@ -33,6 +33,7 @@ class MenuFlyout extends StatefulWidget {
     this.elevation = 8.0,
     this.constraints,
     this.itemMargin = kDefaultMenuItemMargin,
+    this.cursor,
   });
 
   /// {@template fluent_ui.flyouts.menu.items}
@@ -66,6 +67,8 @@ class MenuFlyout extends StatefulWidget {
 
   /// The spacing between the items.
   final EdgeInsetsGeometry itemMargin;
+
+  final MouseCursor? cursor;
 
   @override
   State<MenuFlyout> createState() => _MenuFlyoutState();
@@ -253,6 +256,7 @@ class MenuFlyoutItem extends MenuFlyoutItemBase {
     this.focusNode,
     this.selected = false,
     this.closeAfterClick = true,
+    this.cursor,
   });
 
   /// Displayed before [text].
@@ -297,6 +301,8 @@ class MenuFlyoutItem extends MenuFlyoutItemBase {
 
   bool _useIconPlaceholder = false;
 
+  final MouseCursor? cursor;
+
   @override
   void debugFillProperties(DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
@@ -325,7 +331,8 @@ class MenuFlyoutItem extends MenuFlyoutItemBase {
   @override
   Widget build(BuildContext context) {
     return FlyoutListTile(
-      margin: EdgeInsetsDirectional.zero,
+      cursor: cursor,
+      margin: EdgeInsets.zero,
       selected: selected,
       showSelectedIndicator: false,
       icon:
@@ -514,6 +521,7 @@ class MenuFlyoutSubItem extends MenuFlyoutItem {
     super.trailing = const WindowsIcon(WindowsIcons.chevron_right),
     this.showBehavior = SubItemShowAction.hover,
     this.showHoverDelay = const Duration(milliseconds: 450),
+    this.cursor,
   }) : super(onPressed: null);
 
   /// It is the key of `_MenuFlyoutSubItem`, built in the `build` method. It
@@ -543,20 +551,28 @@ class MenuFlyoutSubItem extends MenuFlyoutItem {
   /// This is set internally by [MenuFlyout].
   bool disableAcyrlic = false;
 
+  final MouseCursor? cursor;
+
   @override
   Widget build(BuildContext context) {
-    return _MenuFlyoutSubItem(key: _key, item: this, items: items);
+    return _MenuFlyoutSubItem(
+      key: _key,
+      item: this,
+      items: items,
+      cursor: cursor,
+    );
   }
 }
 
 class _MenuFlyoutSubItem extends StatefulWidget {
   final MenuFlyoutSubItem item;
   final MenuItemsBuilder items;
+  final MouseCursor? cursor;
 
   const _MenuFlyoutSubItem({
     required this.item,
     required this.items,
-    super.key,
+    this.cursor,
   });
 
   @override
@@ -604,6 +620,7 @@ class _MenuFlyoutSubItemState extends State<_MenuFlyoutSubItem>
     final menuInfo = MenuInfoProvider.of(context);
 
     final item = MenuFlyoutItem(
+      cursor: widget.cursor,
       key: widget.item.key,
       text: widget.item.text,
       leading: widget.item.leading,

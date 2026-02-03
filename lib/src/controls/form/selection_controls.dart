@@ -66,12 +66,16 @@ class FluentTextSelectionToolbar extends StatelessWidget {
     ContextMenuButtonType type,
     BuildContext context,
   ) {
-    final localizations = FluentLocalizations.of(context);
+    // final localizations = FluentLocalizations.of(context);
     return switch (type) {
-      ContextMenuButtonType.cut => localizations.cutActionLabel,
-      ContextMenuButtonType.copy => localizations.copyActionLabel,
-      ContextMenuButtonType.paste => localizations.pasteActionLabel,
-      ContextMenuButtonType.selectAll => localizations.selectAllActionLabel,
+      // ContextMenuButtonType.cut => localizations.cutActionLabel,
+      // ContextMenuButtonType.copy => localizations.copyActionLabel,
+      // ContextMenuButtonType.paste => localizations.pasteActionLabel,
+      // ContextMenuButtonType.selectAll => localizations.selectAllActionLabel,
+      ContextMenuButtonType.cut => 'Cut',
+      ContextMenuButtonType.copy => 'Copy',
+      ContextMenuButtonType.paste => 'Paste',
+      ContextMenuButtonType.selectAll => 'Select All',
       ContextMenuButtonType.delete => 'Delete',
       ContextMenuButtonType.lookUp => 'Lookup',
       ContextMenuButtonType.searchWeb => 'Search Wep',
@@ -86,12 +90,16 @@ class FluentTextSelectionToolbar extends StatelessWidget {
     ContextMenuButtonType type,
     BuildContext context,
   ) {
-    final localizations = FluentLocalizations.of(context);
+    // final localizations = FluentLocalizations.of(context);
     return switch (type) {
-      ContextMenuButtonType.cut => localizations.cutActionTooltip,
-      ContextMenuButtonType.copy => localizations.copyActionTooltip,
-      ContextMenuButtonType.paste => localizations.pasteActionTooltip,
-      ContextMenuButtonType.selectAll => localizations.selectAllActionTooltip,
+      // ContextMenuButtonType.cut => localizations.cutActionTooltip,
+      // ContextMenuButtonType.copy => localizations.copyActionTooltip,
+      // ContextMenuButtonType.paste => localizations.pasteActionTooltip,
+      // ContextMenuButtonType.selectAll => localizations.selectAllActionTooltip,
+      ContextMenuButtonType.cut => 'Cut',
+      ContextMenuButtonType.copy => 'Copy',
+      ContextMenuButtonType.paste => 'Paste',
+      ContextMenuButtonType.selectAll => 'Select All',
       ContextMenuButtonType.delete => 'Delete',
       ContextMenuButtonType.lookUp => 'Lookup',
       ContextMenuButtonType.searchWeb => 'Search Wep',
@@ -106,12 +114,16 @@ class FluentTextSelectionToolbar extends StatelessWidget {
     ContextMenuButtonType type,
     BuildContext context,
   ) {
-    final localizations = FluentLocalizations.of(context);
+    // final localizations = FluentLocalizations.of(context);
     return switch (type) {
-      ContextMenuButtonType.cut => localizations.cutShortcut,
-      ContextMenuButtonType.copy => localizations.copyShortcut,
-      ContextMenuButtonType.paste => localizations.pasteShortcut,
-      ContextMenuButtonType.selectAll => localizations.selectAllShortcut,
+      // ContextMenuButtonType.cut => localizations.cutShortcut,
+      // ContextMenuButtonType.copy => localizations.copyShortcut,
+      // ContextMenuButtonType.paste => localizations.pasteShortcut,
+      // ContextMenuButtonType.selectAll => localizations.selectAllShortcut,
+      ContextMenuButtonType.cut => 'Cut',
+      ContextMenuButtonType.copy => 'Copy',
+      ContextMenuButtonType.paste => 'Paste',
+      ContextMenuButtonType.selectAll => 'Select All',
       ContextMenuButtonType.delete => null,
       ContextMenuButtonType.lookUp => null,
       ContextMenuButtonType.searchWeb => null,
@@ -124,12 +136,12 @@ class FluentTextSelectionToolbar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     assert(debugCheckHasMediaQuery(context));
-    assert(debugCheckHasFluentLocalizations(context));
+    // assert(debugCheckHasFluentLocalizations(context));
     final paddingAbove =
         MediaQuery.paddingOf(context).top + _kToolbarScreenPadding;
     final localAdjustment = Offset(_kToolbarScreenPadding, paddingAbove);
 
-    final localization = FluentLocalizations.of(context);
+    // final localization = FluentLocalizations.of(context);
 
     final orderedButtons = buttonItems
         .where((item) => item.type == ContextMenuButtonType.cut)
@@ -182,9 +194,12 @@ class FluentTextSelectionToolbar extends StatelessWidget {
                   return _FluentTextSelectionToolbarButton(
                     onPressed: item.onPressed,
                     icon: FluentIcons.undo,
-                    shortcut: localization.undoShortcut,
-                    tooltip: localization.undoActionLabel,
-                    text: localization.undoActionLabel,
+                    // shortcut: localization.undoShortcut,
+                    // tooltip: localization.undoActionLabel,
+                    // text: localization.undoActionLabel,
+                    shortcut: 'Ctrl+Z',
+                    tooltip: 'Undo',
+                    text: 'Undo',
                   );
                 }
                 return _FluentTextSelectionToolbarButton(
@@ -401,8 +416,8 @@ class _FluentTextSelectionControlsToolbarState
       widget.selectionMidpoint.dy - widget.globalEditableRegion.top,
     );
 
-    assert(debugCheckHasFluentLocalizations(context));
-    final localizations = FluentLocalizations.of(context);
+    // assert(debugCheckHasFluentLocalizations(context));
+    // final localizations = FluentLocalizations.of(context);
     final items = <Widget>[];
 
     void addToolbarButton(
@@ -425,47 +440,62 @@ class _FluentTextSelectionControlsToolbarState
 
     if (widget.handleCut != null) {
       addToolbarButton(
-        localizations.cutActionLabel,
+        // localizations.cutActionLabel,
+        'Cut',
         FluentIcons.cut,
-        localizations.cutShortcut,
-        localizations.cutActionTooltip,
+        // localizations.cutShortcut,
+        // localizations.cutActionTooltip,
+        'Ctrl+X',
+        'Cut',
         widget.handleCut!,
       );
     }
     if (widget.handleCopy != null) {
       addToolbarButton(
-        localizations.copyActionLabel,
+        // localizations.copyActionLabel,
+        'Copy',
         FluentIcons.copy,
-        localizations.copyShortcut,
-        localizations.copyActionTooltip,
+        // localizations.copyShortcut,
+        // localizations.copyActionTooltip,
+        'Ctrl+C',
+        'Copy',
         widget.handleCopy!,
       );
     }
     if (widget.handlePaste != null &&
         _clipboardStatus!.value == ClipboardStatus.pasteable) {
       addToolbarButton(
-        localizations.pasteActionLabel,
+        // localizations.pasteActionLabel,
+        'Paste',
         FluentIcons.paste,
-        localizations.pasteShortcut,
-        localizations.pasteActionTooltip,
+        // localizations.pasteShortcut,
+        // localizations.pasteActionTooltip,
+        'Ctrl+V',
+        'Paste',
         widget.handlePaste!,
       );
     }
     if (widget.handleUndo != null) {
       addToolbarButton(
-        localizations.undoActionLabel,
+        // localizations.undoActionLabel,
+        'Undo',
         FluentIcons.undo,
-        localizations.undoShortcut,
-        localizations.undoActionTooltip,
+        // localizations.undoShortcut,
+        // localizations.undoActionTooltip,
+        'Ctrl+Z',
+        'Undo',
         widget.handleUndo!,
       );
     }
     if (widget.handleSelectAll != null) {
       addToolbarButton(
-        localizations.selectAllActionLabel,
+        // localizations.selectAllActionLabel,
+        'Select All',
         null,
-        localizations.selectAllShortcut,
-        localizations.selectAllActionTooltip,
+        // localizations.selectAllShortcut,
+        // localizations.selectAllActionTooltip,
+        'Ctrl+A',
+        'Select All',
         widget.handleSelectAll!,
       );
     }

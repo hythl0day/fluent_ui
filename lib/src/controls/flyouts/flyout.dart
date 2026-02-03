@@ -795,6 +795,7 @@ class FlyoutController with ChangeNotifier, WidgetsBindingObserver {
     RouteSettings? settings,
     GestureRecognizer? barrierRecognizer,
     bool buildTarget = false,
+    MouseCursor cursor = MouseCursor.defer,
   }) async {
     _ensureAttached();
     assert(_attachState!.mounted);
@@ -886,6 +887,7 @@ class FlyoutController with ChangeNotifier, WidgetsBindingObserver {
           position: position,
           builder: builder,
           buildTarget: buildTarget,
+          cursor: cursor,
         );
       },
     );
@@ -990,6 +992,7 @@ class _FlyoutPage extends StatelessWidget {
     required this.position,
     required this.builder,
     required this.buildTarget,
+    this.cursor = MouseCursor.defer,
   }) : _attachState = attachState;
 
   final NavigatorState navigator;
@@ -1017,6 +1020,7 @@ class _FlyoutPage extends StatelessWidget {
   final Offset? position;
   final WidgetBuilder builder;
   final bool buildTarget;
+  final MouseCursor cursor;
 
   @override
   Widget build(BuildContext context) {
@@ -1086,68 +1090,71 @@ class _FlyoutPage extends StatelessWidget {
           );
         }
 
-        Widget box = Stack(
-          children: [
-            if (barrierRecognizer != null)
-              Positioned.fill(
-                child: Listener(
-                  behavior: HitTestBehavior.opaque,
-                  onPointerDown: (event) {
-                    barrierRecognizer!.addPointer(event);
-                  },
-                  child: barrier,
-                ),
-              )
-            else if (barrierDismissible)
-              Positioned.fill(
-                child: GestureDetector(
-                  behavior: HitTestBehavior.opaque,
-                  onTap: barrierDismissible ? navigator.pop : null,
-                  child: barrier,
-                ),
-              ),
-            if (buildTarget)
-              Positioned.fromRect(
-                rect: targetRect,
-                child: _attachState!.build(context),
-              ),
-            Positioned.fill(
-              child: SafeArea(
-                child: CustomSingleChildLayout(
-                  delegate: _FlyoutPositionDelegate(
-                    targetOffset: position ?? targetOffset,
-                    targetSize: position == null ? targetSize : Size.zero,
-                    placementMode: placementMode == FlyoutPlacementMode.auto
-                        ? getAutoPlacementMode(
-                            Size.zero,
-                          ) // A bit of a hack for the first pass
-                        : placementMode,
-                    margin: margin,
-                    shouldConstrainToRootBounds: shouldConstrainToRootBounds,
-                    forceAvailableSpace: forceAvailableSpace,
-                  ),
-                  child: Builder(
-                    builder: (context) {
-                      if (placementMode != FlyoutPlacementMode.auto) {
-                        return buildFlyout(placementMode);
-                      }
-                      // Re-calculate with the actual flyout size
-                      return LayoutBuilder(
-                        builder: (context, constraints) {
-                          final flyoutSize = constraints.biggest;
-                          final realPlacementMode = getAutoPlacementMode(
-                            flyoutSize,
-                          );
-                          return buildFlyout(realPlacementMode);
-                        },
-                      );
+        Widget box = MouseRegion(
+          cursor: cursor,
+          child: Stack(
+            children: [
+              if (barrierRecognizer != null)
+                Positioned.fill(
+                  child: Listener(
+                    behavior: HitTestBehavior.opaque,
+                    onPointerDown: (event) {
+                      barrierRecognizer!.addPointer(event);
                     },
+                    child: barrier,
+                  ),
+                )
+              else if (barrierDismissible)
+                Positioned.fill(
+                  child: GestureDetector(
+                    behavior: HitTestBehavior.opaque,
+                    onTap: barrierDismissible ? navigator.pop : null,
+                    child: barrier,
+                  ),
+                ),
+              if (buildTarget)
+                Positioned.fromRect(
+                  rect: targetRect,
+                  child: _attachState!.build(context),
+                ),
+              Positioned.fill(
+                child: SafeArea(
+                  child: CustomSingleChildLayout(
+                    delegate: _FlyoutPositionDelegate(
+                      targetOffset: position ?? targetOffset,
+                      targetSize: position == null ? targetSize : Size.zero,
+                      placementMode: placementMode == FlyoutPlacementMode.auto
+                          ? getAutoPlacementMode(
+                              Size.zero,
+                            ) // A bit of a hack for the first pass
+                          : placementMode,
+                      margin: margin,
+                      shouldConstrainToRootBounds: shouldConstrainToRootBounds,
+                      forceAvailableSpace: forceAvailableSpace,
+                    ),
+                    child: Builder(
+                      builder: (context) {
+                        if (placementMode != FlyoutPlacementMode.auto) {
+                          return buildFlyout(placementMode);
+                        }
+                        // Re-calculate with the actual flyout size
+                        return LayoutBuilder(
+                          builder: (context, constraints) {
+                            final flyoutSize = constraints.biggest;
+                            final realPlacementMode = getAutoPlacementMode(
+                              flyoutSize,
+                            );
+                            return buildFlyout(realPlacementMode);
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ),
-            ),
-            ...menus,
-          ],
+              ...menus,
+            ],
+          ),
         );
 
         if (dismissOnPointerMoveAway) {

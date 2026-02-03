@@ -68,6 +68,7 @@ class DropDownButton extends StatefulWidget {
     this.onClose,
     this.transitionBuilder = _defaultTransitionBuilder,
     this.style,
+    this.cursor,
   }) : assert(items.length > 0, 'You must provide at least one item');
 
   /// A builder for the button. If null, a [Button] with [leading], [title] and
@@ -153,6 +154,8 @@ class DropDownButton extends StatefulWidget {
 
   /// Customizes this button's appearance.
   final ButtonStyle? style;
+
+  final MouseCursor? cursor;
 
   @override
   State<DropDownButton> createState() => DropDownButtonState();
@@ -363,7 +366,8 @@ class DropDownButtonState extends State<DropDownButton> {
   }) async {
     if (_flyoutController.isOpen) return;
     widget.onOpen?.call();
-    await _flyoutController.showFlyout<void>(
+    await _flyoutController.showFlyout(
+      cursor: widget.cursor ?? MouseCursor.defer,
       barrierColor: Colors.transparent,
       autoModeConfiguration: FlyoutAutoConfiguration(
         preferredMode: widget.placement,
@@ -375,6 +379,7 @@ class DropDownButtonState extends State<DropDownButton> {
       transitionBuilder: widget.transitionBuilder,
       builder: (context) {
         return MenuFlyout(
+          cursor: widget.cursor,
           color: widget.menuColor,
           shape: widget.menuShape,
           items: widget.items
@@ -401,6 +406,7 @@ class DropDownButtonState extends State<DropDownButton> {
 
   MenuFlyoutSubItem _createSubMenuItem(MenuFlyoutSubItem item) {
     return MenuFlyoutSubItem(
+      cursor: widget.cursor,
       key: item.key,
       text: item.text,
       items: (context) => item
@@ -416,6 +422,7 @@ class DropDownButtonState extends State<DropDownButton> {
 
   MenuFlyoutItem _createMenuItem(MenuFlyoutItem item, BuildContext context) {
     return MenuFlyoutItem(
+      cursor: widget.cursor,
       onPressed: item.onPressed,
       closeAfterClick: !!item.closeAfterClick || !widget.closeAfterClick,
       key: item.key,
