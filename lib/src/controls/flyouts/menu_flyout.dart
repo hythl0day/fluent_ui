@@ -521,7 +521,7 @@ class MenuFlyoutSubItem extends MenuFlyoutItem {
     super.trailing = const WindowsIcon(WindowsIcons.chevron_right),
     this.showBehavior = SubItemShowAction.hover,
     this.showHoverDelay = const Duration(milliseconds: 450),
-    this.cursor,
+    super.cursor,
   }) : super(onPressed: null);
 
   /// It is the key of `_MenuFlyoutSubItem`, built in the `build` method. It
@@ -551,8 +551,6 @@ class MenuFlyoutSubItem extends MenuFlyoutItem {
   /// This is set internally by [MenuFlyout].
   bool disableAcyrlic = false;
 
-  final MouseCursor? cursor;
-
   @override
   Widget build(BuildContext context) {
     return _MenuFlyoutSubItem(
@@ -572,6 +570,7 @@ class _MenuFlyoutSubItem extends StatefulWidget {
   const _MenuFlyoutSubItem({
     required this.item,
     required this.items,
+    super.key,
     this.cursor,
   });
 

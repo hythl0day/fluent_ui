@@ -536,7 +536,7 @@ class NavigationViewState extends State<NavigationView> {
 
     if (paneDisplayMode == PaneDisplayMode.auto) {
       var width = constraints.biggest.width;
-      if (width.isInfinite) width = MediaQuery.widthOf(context);
+      if (width.isInfinite) width = MediaQuery.sizeOf(context).width;
 
       PaneDisplayMode autoDisplayMode;
       if (width <= 640) {

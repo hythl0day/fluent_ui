@@ -463,30 +463,18 @@ class TabState extends State<Tab>
                                 primaryBorder: BorderSide.none,
                                 secondaryBorder: BorderSide.none,
                               ),
-<<<<<<< HEAD
                               child:
                                   // Tooltip(
                                   //   message: localizations.closeTabLabel,
                                   //   child:
                                   SizedBox(
-                                    height: 24.0,
-                                    width: 32.0,
+                                    height: 24,
+                                    width: 32,
                                     child: IconButton(
                                       icon: widget.closeIcon!,
                                       onPressed: tab.onClose,
                                       focusable: false,
                                     ),
-=======
-                              child: Tooltip(
-                                message: localizations.closeTabLabel,
-                                child: SizedBox(
-                                  height: 24,
-                                  width: 32,
-                                  child: IconButton(
-                                    icon: widget.closeIcon!,
-                                    onPressed: tab.onClose,
-                                    focusable: false,
->>>>>>> upstream/master
                                   ),
                               // ),
                             ),

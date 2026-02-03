@@ -655,35 +655,12 @@ class _TabViewState extends State<TabView> {
                               ),
                               child: _buttonTabBuilder(
                                 context,
-<<<<<<< HEAD
-                                () {
-                                  Widget icon;
-                                  // ignore: deprecated_member_use_from_same_package
-                                  if (widget.addIconData != null) {
-                                    // ignore: deprecated_member_use_from_same_package
-                                    icon = Icon(widget.addIconData, size: 12.0);
-                                  } else {
-                                    icon = widget.newTabIcon;
-                                  }
-                                  icon = IconTheme.merge(
-                                    data: const IconThemeData(size: 12.0),
-                                    child: icon,
-                                  );
-
-                                  // ignore: deprecated_member_use_from_same_package
-                                  return widget.addIconBuilder?.call(icon) ??
-                                      icon;
-                                }(),
-                                widget.onNewPressed!,
-                                // tooltip: localizations.newTabLabel,
-=======
                                 IconTheme.merge(
                                   data: const IconThemeData(size: 12),
                                   child: widget.newTabIcon,
                                 ),
                                 widget.onNewPressed,
-                                localizations.newTabLabel,
->>>>>>> upstream/master
+                                // localizations.newTabLabel,
                               ),
                             ),
                           // reserved strip width
