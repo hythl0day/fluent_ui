@@ -366,7 +366,7 @@ class DropDownButtonState extends State<DropDownButton> {
   }) async {
     if (_flyoutController.isOpen) return;
     widget.onOpen?.call();
-    await _flyoutController.showFlyout<void>(
+    await _flyoutController.showFlyout<MenuFlyout>(
       cursor: widget.cursor ?? MouseCursor.defer,
       barrierColor: Colors.transparent,
       autoModeConfiguration: FlyoutAutoConfiguration(
