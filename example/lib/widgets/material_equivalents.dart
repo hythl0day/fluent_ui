@@ -99,15 +99,15 @@ class _UIEquivalentsState extends State<UIEquivalents> {
           groupValue: true,
           child: RadioButton(value: radioChecked),
         ),
-        m.Radio<bool>(
-          value: radioChecked,
-          groupValue: true,
+        RadioGroup<bool>(
           onChanged: (v) => setState(() => radioChecked = !radioChecked),
+          groupValue: true,
+          child: m.Radio<bool>(value: radioChecked),
         ),
-        c.CupertinoRadio<bool>(
-          value: radioChecked,
-          groupValue: true,
+        RadioGroup<bool>(
           onChanged: (v) => setState(() => radioChecked = !radioChecked),
+          groupValue: true,
+          child: c.CupertinoRadio<bool>(value: radioChecked),
         ),
       ],
       [

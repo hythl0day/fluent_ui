@@ -349,7 +349,7 @@ class _SliderState extends State<Slider> {
           ),
           builder: (context, innerFactor, child) => m.SliderTheme(
             data: m.SliderThemeData(
-              showValueIndicator: m.ShowValueIndicator.always,
+              showValueIndicator: m.ShowValueIndicator.onDrag,
               thumbColor: style.thumbColor?.resolve(states),
               overlayShape: const m.RoundSliderOverlayShape(overlayRadius: 0),
               valueIndicatorTextStyle: TextStyle(

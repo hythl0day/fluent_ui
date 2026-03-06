@@ -546,7 +546,7 @@ class _TabViewState extends State<TabView> {
                               shrinkWrap: true,
                               scrollDirection: Axis.horizontal,
                               scrollController: scrollController,
-                              onReorder: (i, ii) {
+                              onReorderItem: (i, ii) {
                                 widget.onReorder?.call(i, ii);
                               },
                               itemCount: widget.tabs.length,
@@ -633,9 +633,10 @@ class _TabViewState extends State<TabView> {
                         children: [
                           // scroll buttons if needed
                           if (showScrollButtons)
-                            direction == TextDirection.ltr
-                                ? backwardButton()
-                                : forwardButton(),
+                            if (direction == TextDirection.ltr)
+                              backwardButton()
+                            else
+                              forwardButton(),
                           // tabs area (flexible/expanded)
                           if (scrollable)
                             Expanded(child: listView)
@@ -643,9 +644,10 @@ class _TabViewState extends State<TabView> {
                             Flexible(child: listView),
                           // scroll buttons if needed
                           if (showScrollButtons)
-                            direction == TextDirection.ltr
-                                ? forwardButton()
-                                : backwardButton(),
+                            if (direction == TextDirection.ltr)
+                              forwardButton()
+                            else
+                              backwardButton(),
                           // new tab button
                           if (widget.showNewButton)
                             Padding(
