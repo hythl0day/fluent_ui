@@ -1168,13 +1168,11 @@ class TreeViewState extends State<TreeView> with AutomaticKeepAliveClientMixin {
             primary: widget.scrollPrimary ?? (widget.shrinkWrap ? false : null),
             controller: widget.scrollController,
             shrinkWrap: widget.shrinkWrap,
-<<<<<<< HEAD
-            // scrollCacheExtent: widget.scrollCacheExtent,
-=======
-            // ignore: deprecated_member_use
-            cacheExtent: widget.cacheExtent,
-            scrollCacheExtent: widget.scrollCacheExtent,
->>>>>>> 139f2a1b (refactor: Flutter 3.44.0 support)
+            scrollCacheExtent:
+                widget.scrollCacheExtent ??
+                (widget.cacheExtent != null
+                    ? ScrollCacheExtent.pixels(widget.cacheExtent!)
+                    : null),
             itemExtent: widget.itemExtent,
             addRepaintBoundaries: widget.addRepaintBoundaries,
             prototypeItem: widget.usePrototypeItem && _items.isNotEmpty
